@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مطعم النيل الأزرق — القائمة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand: #EFE3C8;
+    --sand-dim: #E4D5B4;
+    --ink: #241C15;
+    --ink-soft: #5A4E3F;
+    --karkade: #7A1F3D;
+    --karkade-dark: #5C1630;
+    --nile: #1F5C57;
+    --gold: #C08A28;
+    --line: rgba(36,28,21,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Tajawal', sans-serif;
+    padding-bottom:96px;
+    min-height:100vh;
+  }
+
+  /* ---------- CONFIG BAR (for the restaurant owner to edit) ---------- */
+  .config-note{
+    background:var(--ink);
+    color:var(--sand);
+    font-size:12px;
+    text-align:center;
+    padding:6px 12px;
+    line-height:1.6;
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:36px 20px 28px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(circle at 20% 0%, rgba(192,138,40,0.16), transparent 55%),
+      radial-gradient(circle at 85% 10%, rgba(122,31,61,0.14), transparent 50%);
+  }
+  header.hero .eyebrow{
+    color:var(--nile);
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  header.hero h1{
+    font-family:'Lalezar', sans-serif;
+    font-weight:400;
+    font-size:44px;
+    margin:0 0 8px;
+    color:var(--karkade);
+    letter-spacing:0.5px;
+  }
+  header.hero p.tagline{
+    margin:0 0 14px;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+  header.hero .meta{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    font-size:13px;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+  }
+
+  /* ---------- CATEGORY TABS ---------- */
+  nav.tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:var(--sand);
+    display:flex;
+    gap:8px;
+    padding:14px 16px;
+    overflow-x:auto;
+    border-bottom:1px solid var(--line);
+  }
+  nav.tabs button{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink);
+    font-family:'Tajawal',sans-serif;
+    font-size:14px;
+    font-weight:700;
+    padding:8px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  nav.tabs button.active{
+    background:var(--karkade);
+    border-color:var(--karkade);
+    color:var(--sand);
+  }
+
+  /* ---------- MENU ---------- */
+  main{
+    max-width:640px;
+    margin:0 auto;
+    padding:8px 16px 24px;
+  }
+  section.category{
+    margin-top:26px;
+  }
+  section.category h2{
+    font-family:'Lalezar', sans-serif;
+    font-weight:400;
+    font-size:24px;
+    color:var(--nile);
+    margin:0 0 4px;
+  }
+  section.category .cat-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:0 0 12px;
+  }
+
+  .item-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item-row .info h3{
+    margin:0 0 4px;
+    font-size:16.5px;
+    font-weight:700;
+  }
+  .item-row .info p{
+    margin:0;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .item-row .price{
+    font-weight:700;
+    color:var(--karkade);
+    font-size:14.5px;
+    white-space:nowrap;
+    min-width:78px;
+    text-align:left;
+  }
+
+  .stepper{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:0 0 auto;
+  }
+  .stepper button{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:1px solid var(--karkade);
+    background:transparent;
+    color:var(--karkade);
+    font-size:17px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background 0.15s, color 0.15s, transform 0.1s;
+  }
+  .stepper button:active{ transform:scale(0.92); }
+  .stepper button.add{
+    background:var(--karkade);
+    color:var(--sand);
+  }
+  .stepper .qty{
+    min-width:14px;
+    text-align:center;
+    font-weight:700;
+    font-size:15px;
+  }
+
+  /* ---------- STICKY ORDER BAR ---------- */
+  .order-bar{
+    position:fixed;
+    right:0; left:0; bottom:0;
+    background:var(--ink);
+    color:var(--sand);
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    transform:translateY(110%);
+    transition:transform 0.28s ease;
+    z-index:30;
+  }
+  .order-bar.visible{ transform:translateY(0); }
+  .order-bar .summary{
+    font-size:13.5px;
+    line-height:1.5;
+  }
+  .order-bar .summary strong{
+    font-size:16px;
+    color:var(--gold);
+  }
+  .order-bar button.checkout{
+    background:var(--karkade);
+    color:var(--sand);
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-family:'Tajawal',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+
+  footer{
+    text-align:center;
+    padding:22px 16px 8px;
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- LOCK SCREEN (trial expired / service stopped) ---------- */
+  #lockScreen{
+    position:fixed;
+    inset:0;
+    background:var(--ink);
+    color:var(--sand);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:32px;
+    z-index:100;
+  }
+  #lockScreen h2{
+    font-family:'Lalezar', sans-serif;
+    font-weight:400;
+    font-size:30px;
+    color:var(--gold);
+    margin:0 0 12px;
+  }
+  #lockScreen p{
+    font-size:14.5px;
+    line-height:1.8;
+    max-width:340px;
+    margin:0 0 18px;
+    color:var(--sand-dim);
+  }
+  #lockScreen .contact{
+    font-size:14px;
+    font-weight:700;
+    color:var(--sand);
+    border:1px solid var(--sand-dim);
+    padding:10px 20px;
+    border-radius:10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="config-note">
+  ⚙️ هذه نسخة تجريبية — اسم المطعم، الأصناف، الأسعار، ورقم واتساب كلها بتتغيّر حسب كل مطعم في دقايق
+</div>
+
+<div id="lockScreen" style="display:none;">
+  <h2>الخدمة متوقفة مؤقتاً</h2>
+  <p id="lockMessage">انتهت الفترة التجريبية لهذه القائمة. تواصل معانا لتفعيل الاشتراك ومواصلة استخدام القائمة الرقمية.</p>
+  <div class="contact">واتساب: 249900000000</div>
+</div>
+
+<header class="hero">
+  <div class="eyebrow">مطعم سوداني أصيل</div>
+  <h1>مطعم النيل الأزرق</h1>
+  <p class="tagline">أكلات بيتنا، من إيدين أمهاتنا</p>
+  <div class="meta">
+    <span>📍 الخرطوم، السوق العربي</span>
+    <span>🕐 يفتح ٧ صباحاً – ١١ مساءً</span>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<main id="menu"></main>
+
+<div class="order-bar" id="orderBar">
+  <div class="summary">
+    <span id="itemCount">0</span> صنف — الإجمالي: <strong><span id="totalPrice">0</span> ج.س</strong>
+  </div>
+  <button class="checkout" id="checkoutBtn">اطلب عبر واتساب</button>
+</div>
+
+<footer>قائمة رقمية جاهزة لأي مطعم — بدون تطبيق، بدون تنزيل، شغالة من أي موبايل</footer>
+
+<script>
+/* ============ إعدادات المطعم — كل مطعم يبدّل هنا فقط ============ */
+const RESTAURANT = {
+  name: "مطعم النيل الأزرق",
+  whatsapp: "249900000000" // رقم واتساب المطعم بصيغة دولية بدون +
+};
+
+/* ============ التفعيل والفترة التجريبية ============
+   active: false  -> يقفل القائمة فوراً بغض النظر عن التاريخ (لإيقاف الخدمة يدوياً)
+   trialEndsAt    -> تاريخ نهاية التجربة، بعده تتقفل القائمة تلقائياً
+   بعد الدفع/التجديد: مد التاريخ أو رجّع active إلى true وابعت الملف المحدّث للمطعم */
+const ACTIVATION = {
+  active: true,
+  trialEndsAt: "2026-10-03" // مثال: شهر تجربة من 3 سبتمبر 2026
+};
+/* ==================================================== */
+
+const MENU = [
+  {
+    category: "فطور",
+    note: "يقدَّم حتى الساعة ١١ صباحاً",
+    items: [
+      { id:"f1", name:"فول مدمس", desc:"فول بالزيت والطماطم", price:1500 },
+      { id:"f2", name:"طعمية", desc:"٦ حبات مع سلطة", price:1000 },
+      { id:"f3", name:"فول بالسمنة والجبنة", desc:"", price:2200 },
+      { id:"f4", name:"بيض بالبصل", desc:"", price:1800 },
+    ]
+  },
+  {
+    category: "أطباق رئيسية",
+    note: "",
+    items: [
+      { id:"m1", name:"كبدة مشوية", desc:"مع سلطة وخبز", price:3500 },
+      { id:"m2", name:"شاورما لحم", desc:"", price:4000 },
+      { id:"m3", name:"شاورما دجاج", desc:"", price:3500 },
+      { id:"m4", name:"ملاح ويكة باللحم", desc:"مع كسرة أو عصيدة", price:4500 },
+      { id:"m5", name:"عصيدة بالملاح", desc:"", price:4000 },
+    ]
+  },
+  {
+    category: "مشروبات",
+    note: "",
+    items: [
+      { id:"d1", name:"كركدي بارد", desc:"", price:800 },
+      { id:"d2", name:"تبلدي", desc:"", price:800 },
+      { id:"d3", name:"حلو مر", desc:"", price:700 },
+      { id:"d4", name:"قهوة جبنة", desc:"", price:600 },
+      { id:"d5", name:"شاي بالحليب", desc:"", price:500 },
+    ]
+  }
+];
+/* ================================================================= */
+
+const cart = {};
+const tabsEl = document.getElementById('tabs');
+const menuEl = document.getElementById('menu');
+const orderBar = document.getElementById('orderBar');
+const itemCountEl = document.getElementById('itemCount');
+const totalPriceEl = document.getElementById('totalPrice');
+
+function buildTabs(){
+  MENU.forEach((cat, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = cat.category;
+    if(idx === 0) btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('cat-' + idx).scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+    tabsEl.appendChild(btn);
+  });
+}
+
+function buildMenu(){
+  MENU.forEach((cat, idx) => {
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.id = 'cat-' + idx;
+
+    const h2 = document.createElement('h2');
+    h2.textContent = cat.category;
+    section.appendChild(h2);
+
+    if(cat.note){
+      const note = document.createElement('p');
+      note.className = 'cat-note';
+      note.textContent = cat.note;
+      section.appendChild(note);
+    }
+
+    cat.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.innerHTML = `
+        <div class="info">
+          <h3>${item.name}</h3>
+          ${item.desc ? `<p>${item.desc}</p>` : ''}
+        </div>
+        <div class="price">${item.price.toLocaleString('en-US')} ج.س</div>
+        <div class="stepper" data-id="${item.id}">
+          <button class="minus" aria-label="تقليل">−</button>
+          <span class="qty">0</span>
+          <button class="add" aria-label="إضافة">+</button>
+        </div>
+      `;
+      section.appendChild(row);
+    });
+
+    menuEl.appendChild(section);
+  });
+}
+
+function findItem(id){
+  for(const cat of MENU){
+    const found = cat.items.find(i => i.id === id);
+    if(found) return found;
+  }
+}
+
+function updateBar(){
+  const ids = Object.keys(cart).filter(id => cart[id] > 0);
+  const count = ids.reduce((sum, id) => sum + cart[id], 0);
+  const total = ids.reduce((sum, id) => sum + cart[id] * findItem(id).price, 0);
+
+  itemCountEl.textContent = count;
+  totalPriceEl.textContent = total.toLocaleString('en-US');
+  orderBar.classList.toggle('visible', count > 0);
+}
+
+function attachStepperEvents(){
+  document.querySelectorAll('.stepper').forEach(stepper => {
+    const id = stepper.dataset.id;
+    const qtyEl = stepper.querySelector('.qty');
+    const minusBtn = stepper.querySelector('.minus');
+    const addBtn = stepper.querySelector('.add');
+
+    addBtn.addEventListener('click', () => {
+      cart[id] = (cart[id] || 0) + 1;
+      qtyEl.textContent = cart[id];
+      updateBar();
+    });
+
+    minusBtn.addEventListener('click', () => {
+      if(!cart[id]) return;
+      cart[id] = Math.max(0, cart[id] - 1);
+      qtyEl.textContent = cart[id];
+      updateBar();
+    });
+  });
+}
+
+document.getElementById('checkoutBtn').addEventListener('click', () => {
+  const ids = Object.keys(cart).filter(id => cart[id] > 0);
+  if(ids.length === 0) return;
+
+  let lines = [`مرحباً ${RESTAURANT.name}، أبغى أطلب:`];
+  let total = 0;
+  ids.forEach(id => {
+    const item = findItem(id);
+    const lineTotal = item.price * cart[id];
+    total += lineTotal;
+    lines.push(`- ${item.name} ×${cart[id]} — ${lineTotal.toLocaleString('en-US')} ج.س`);
+  });
+  lines.push(`الإجمالي: ${total.toLocaleString('en-US')} ج.س`);
+  lines.push('');
+  lines.push('الاسم: ');
+  lines.push('الموقع/الحي: ');
+
+  const message = encodeURIComponent(lines.join('\n'));
+  window.open(`https://wa.me/${RESTAURANT.whatsapp}?text=${message}`, '_blank');
+});
+
+function isServiceLocked(){
+  if(!ACTIVATION.active) return true;
+  const today = new Date();
+  const end = new Date(ACTIVATION.trialEndsAt + 'T23:59:59');
+  return today > end;
+}
+
+if(isServiceLocked()){
+  document.getElementById('lockScreen').style.display = 'flex';
+  if(!ACTIVATION.active){
+    document.getElementById('lockMessage').textContent =
+      'هذه القائمة موقوفة حالياً. تواصل معانا لإعادة تفعيل الاشتراك.';
+  }
+} else {
+  buildTabs();
+  buildMenu();
+  attachStepperEvents();
+}
+</script>
+</body>
+</html>
