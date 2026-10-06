@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>بوصلة للخدمات الطلابية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Noto+Kufi+Arabic:wght@700;800&display=swap">
+<style>
+/* Layout: one calm column on phones; hero panel with the compass mark beside the headline on wide screens. */
+:root{
+  --bg:#F3F6FB; --surface:#FFFFFF; --ink:#0E2038; --muted:#4A5D78; --line:#D6DFEC;
+  --brand:#0B2E59; --brand-fg:#FFFFFF; --gold:#F4B942; --soft:#E7EEF8;
+  --hero-a:#14508F; --hero-b:#0A2748; --hero-fg:#FFFFFF; --hero-sub:#C9D8EC;
+  --focus:#1F6FD1;
+  --f-display:'Noto Kufi Arabic','Segoe UI',Tahoma,Arial,sans-serif;
+  --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#08162B; --surface:#0F2342; --ink:#E8EEF7; --muted:#9FB0C8; --line:#22395C;
+    --brand:#F4B942; --brand-fg:#0B2E59; --soft:#132A4D; --focus:#7DB4FF;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#08162B; --surface:#0F2342; --ink:#E8EEF7; --muted:#9FB0C8; --line:#22395C;
+  --brand:#F4B942; --brand-fg:#0B2E59; --soft:#132A4D; --focus:#7DB4FF;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.75;padding-inline:16px;padding-block:0 40px}
+.page{max-width:1040px;margin-inline:auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.35;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:20px;color:var(--brand)}
+.brand svg{width:34px;height:34px;flex:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding-inline:22px;border-radius:12px;border:0;font:600 16px var(--f-body);text-decoration:none;cursor:pointer}
+.btn-primary{background:var(--brand);color:var(--brand-fg)}
+.btn-gold{background:var(--gold);color:#0B2E59}
+.btn-line{background:transparent;color:var(--hero-fg);border:1.5px solid rgba(255,255,255,.55)}
+.btn-ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn:hover{filter:brightness(1.06)}
+
+/* hero */
+.hero{background:linear-gradient(150deg,var(--hero-a),var(--hero-b));color:var(--hero-fg);border-radius:22px;padding:36px 22px;display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+.hero h1{font-size:clamp(26px,6.4vw,44px);font-weight:800}
+.hero .lead{color:var(--hero-sub);margin-top:14px;max-width:34em}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.hero .note{margin-top:18px;font-size:14px;color:var(--hero-sub);border-inline-start:3px solid var(--gold);padding-inline-start:12px}
+.mark{justify-self:center;width:min(230px,60%)}
+.mark svg{display:block;width:100%;height:auto}
+.hero>div{min-width:0}
+
+/* sections */
+.sec{display:flex;flex-direction:column;gap:22px}
+.sec h2{font-size:clamp(22px,4.6vw,30px);font-weight:700}
+.sec .sub{color:var(--muted);max-width:40em;margin-top:-10px}
+.services{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;padding-block:18px;border-bottom:1px solid var(--line)}
+.svc .ico{grid-row:span 2;width:42px;height:42px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--brand)}
+.svc .ico svg{width:22px;height:22px}
+.svc h3{font-size:18px;font-weight:700;align-self:end}
+.svc p{color:var(--muted)}
+
+.steps{display:grid;grid-template-columns:1fr;gap:16px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 18px 18px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;counter-increment:s}
+.steps li::before{content:counter(s);grid-row:span 2;width:38px;height:38px;border-radius:50%;background:var(--brand);color:var(--brand-fg);display:grid;place-items:center;font:800 18px var(--f-display)}
+.steps b{font-family:var(--f-display);font-size:17px}
+.steps span{color:var(--muted)}
+
+.docs{display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:0;list-style:none}
+.docs li{background:var(--soft);border-radius:999px;padding:6px 16px;font-weight:500}
+.fine{color:var(--muted);font-size:14px}
+
+details{border-bottom:1px solid var(--line);padding-block:4px}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;padding-block:14px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--brand)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);padding-bottom:16px}
+
+/* form */
+.formbox{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 18px}
+form{display:grid;grid-template-columns:1fr;gap:16px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+label{font-weight:600;font-size:15px}
+input,select,textarea{width:100%;font:400 16px var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;min-height:46px}
+textarea{min-height:90px;resize:vertical}
+.err{color:#C0392B;font-size:14px;min-height:1px}
+:root[data-theme="dark"] .err{color:#FF8A7A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#FF8A7A}}
+.phone{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:8px;direction:ltr}
+.phone select,.phone input{text-align:left}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px}
+.pair .fld{min-width:0}
+.hint{color:var(--muted);font-size:14px}
+.hint b{color:var(--ink);font-weight:600}
+.hint .numtxt{font-weight:600}
+.result{margin-top:18px;display:flex;flex-direction:column;gap:12px;border-top:1px dashed var(--line);padding-top:18px}
+.result textarea{min-height:150px;direction:rtl}
+.result .row{display:flex;flex-wrap:wrap;gap:10px}
+.numtxt{direction:ltr;unicode-bidi:isolate;display:inline-block;font-weight:600}
+
+footer{border-top:1px solid var(--line);padding-block:22px 0;color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+
+@media (min-width:760px){
+  body{padding-inline:28px}
+  .hero{grid-template-columns:1.35fr 1fr;padding:56px 48px}
+  .mark{width:min(300px,100%)}
+  .services{grid-template-columns:1fr 1fr;column-gap:40px}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .steps li{grid-template-columns:1fr;gap:12px}
+  .steps li::before{grid-row:auto}
+  form{grid-template-columns:1fr 1fr}
+  .fld.full{grid-column:1/-1}
+  .formbox{padding:30px}
+}
+@media (prefers-reduced-motion: no-preference){
+  .btn{transition:filter .15s}
+}
+</style>
+
+
+</head>
+<body>
+<div class="page" dir="rtl" lang="ar">
+
+  <header class="bar">
+    <div class="brand">
+      <svg viewBox="-250 -250 500 500" aria-hidden="true">
+        <circle r="222" fill="none" stroke="currentColor" stroke-width="22"/>
+        <g transform="rotate(35)">
+          <polygon points="0,-170 36,0 -36,0" fill="#F4B942"/>
+          <polygon points="0,170 36,0 -36,0" fill="currentColor"/>
+        </g>
+        <circle r="17" fill="var(--bg)" stroke="currentColor" stroke-width="8"/>
+      </svg>
+      <span>بوصلة</span>
+    </div>
+    <a class="btn btn-ghost" data-wa href="#register" hidden>واتساب</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>نرشدك للتقديم والتسجيل في الجامعة، خطوة بخطوة</h1>
+      <p class="lead">بوصلة للخدمات الطلابية تساعد الطالب في اختيار التخصص والجامعة، وتجهيز المستندات، ومتابعة خطوات التقديم والتسجيل.</p>
+      <div class="actions">
+        <a class="btn btn-gold" href="#register">سجّل طلبك</a>
+        <a class="btn btn-line" href="#how">كيف نعمل</a>
+      </div>
+      <p class="note">القبول قرار الجامعة ولا نعد بقبول مضمون. نوضح لك الخطوات والرسوم من البداية.</p>
+    </div>
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="-250 -250 500 500">
+        <circle r="222" fill="none" stroke="#fff" stroke-width="16"/>
+        <circle r="190" fill="none" stroke="#F4B942" stroke-width="4" opacity=".55"/>
+        <g stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".85">
+          <line y1="-160" y2="-186" transform="rotate(45)"/><line y1="-160" y2="-186" transform="rotate(135)"/>
+          <line y1="-160" y2="-186" transform="rotate(225)"/><line y1="-160" y2="-186" transform="rotate(315)"/>
+          <line y1="-160" y2="-186" transform="rotate(90)"/><line y1="-160" y2="-186" transform="rotate(270)"/>
+        </g>
+        <g transform="rotate(35)">
+          <polygon points="0,-170 36,0 -36,0" fill="#F4B942"/>
+          <polygon points="0,170 36,0 -36,0" fill="#fff"/>
+          <circle r="15" fill="#0B2E59" stroke="#fff" stroke-width="6"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="sec" id="services">
+    <h2>ماذا نقدم</h2>
+    <div class="services">
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+        <h3>اختيار التخصص والجامعة</h3>
+        <p>نناقش معدلك واهتماماتك ونعرض عليك الخيارات المناسبة.</p>
+      </div>
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></div>
+        <h3>تجهيز المستندات</h3>
+        <p>نرتب معك الملف ونراجع أن كل مستند مطلوب موجود.</p>
+      </div>
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+        <h3>متابعة التقديم والتسجيل</h3>
+        <p>نرافقك في الخطوات ونذكّرك بالمواعيد والمطلوب في كل مرحلة.</p>
+      </div>
+      <div class="svc">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>إجابة أسئلتك</h3>
+        <p>اسأل قبل أن تقرر. نشرح لك الشروط والرسوم بوضوح.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <h2>كيف نعمل</h2>
+    <ol class="steps">
+      <li><b>تتواصل معنا</b><span>تعبّئ النموذج وتخبرنا بتخصصك ومعدلك.</span></li>
+      <li><b>نقترح ونوضح</b><span>نعرض عليك الخيارات ونشرح الشروط والرسوم قبل أي اتفاق.</span></li>
+      <li><b>نجهّز ونتابع</b><span>نرتب المستندات ونتابع معك التقديم والتسجيل.</span></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="docs">
+    <h2>المستندات المطلوبة عادةً</h2>
+    <ul class="docs">
+      <li>الشهادة الدراسية</li>
+      <li>الهوية أو جواز السفر</li>
+      <li>صور شخصية</li>
+      <li>كشف الدرجات</li>
+    </ul>
+    <p class="fine">تختلف الشروط من جامعة لأخرى. اسألنا قبل أن تبدأ.</p>
+  </section>
+
+  <section class="sec" id="faq">
+    <h2>أسئلة شائعة</h2>
+    <div>
+      <details><summary>هل تضمنون القبول؟</summary><p>لا. القبول قرار الجامعة. دورنا أن نرشدك ونرتب ملفك وننظم خطواتك.</p></details>
+      <details><summary>كيف تتم الأتعاب؟</summary><p>نتفق معك على الخدمة والسعر قبل أي دفع، ونعطيك إيصالاً.</p></details>
+      <details><summary>ماذا تفعلون ببياناتي وشهاداتي؟</summary><p>نستخدمها لغرض التقديم فقط، ولا ننشرها بدون إذنك.</p></details>
+    </div>
+  </section>
+
+  <section class="sec" id="register">
+    <h2>سجّل طلبك</h2>
+    <p class="sub">عبّئ البيانات وسنجهز لك رسالة جاهزة لترسلها لنا على واتساب.</p>
+    <div class="formbox">
+      <form id="reg" novalidate>
+        <div class="fld">
+          <label for="f-name">الاسم</label>
+          <input id="f-name" name="name" autocomplete="name" required>
+          <div class="err" id="e-name"></div>
+        </div>
+        <div class="fld">
+          <label for="f-phone">رقم الواتساب</label>
+          <div class="phone">
+            <select id="f-cc" aria-label="كود الدولة">
+              <option value="249" selected>+249 السودان</option>
+              <option value="20">+20 مصر</option>
+              <option value="966">+966 السعودية</option>
+              <option value="971">+971 الإمارات</option>
+              <option value="974">+974 قطر</option>
+              <option value="965">+965 الكويت</option>
+              <option value="218">+218 ليبيا</option>
+              <option value="211">+211 جنوب السودان</option>
+              <option value="235">+235 تشاد</option>
+              <option value="251">+251 إثيوبيا</option>
+              <option value="44">+44 بريطانيا</option>
+              <option value="other">رمز دولة آخر</option>
+            </select>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="912345678" required>
+          </div>
+          <input id="f-cc-other" inputmode="numeric" dir="ltr" placeholder="اكتب كود دولتك بدون + (مثال: 962)" hidden aria-label="كود دولة آخر">
+          <div class="hint">اختر <b>كود دولتك</b> من القائمة (السودان <span class="numtxt">+249</span>)، ثم اكتب رقمك <b>بدون الصفر</b> في أوله. مثال: <span class="numtxt">912345678</span></div>
+          <div class="err" id="e-phone"></div>
+        </div>
+        <div class="fld">
+          <label for="f-level">المرحلة</label>
+          <select id="f-level" name="level">
+            <option>خريج ثانوية</option>
+            <option>طالب جامعي</option>
+            <option>خريج جامعي (دراسات عليا)</option>
+          </select>
+        </div>
+        <div class="full pair">
+          <div class="fld">
+            <label for="f-major">الرغبة الأساسية</label>
+            <input id="f-major" name="major" placeholder="مثال: طب، هندسة، حاسوب">
+          </div>
+          <div class="fld">
+            <label for="f-pct">النسبة %</label>
+            <input id="f-pct" name="pct" type="number" inputmode="decimal" min="0" max="100" step="0.01" placeholder="85" dir="ltr">
+            <div class="err" id="e-pct"></div>
+          </div>
+        </div>
+        <div class="fld full">
+          <label for="f-country">الدولة أو الجامعة المفضلة</label>
+          <input id="f-country" name="country" placeholder="داخل السودان أو خارجه">
+        </div>
+        <div class="fld full">
+          <label for="f-note">ملاحظات</label>
+          <textarea id="f-note" name="note"></textarea>
+        </div>
+        <div class="fld full">
+          <button class="btn btn-primary" type="submit">جهّز الرسالة</button>
+        </div>
+      </form>
+
+      <div class="result" id="result" hidden>
+        <label for="msg">رسالتك جاهزة</label>
+        <textarea id="msg" readonly></textarea>
+        <div class="row">
+          <a class="btn btn-gold" id="wa-send" target="_blank" rel="noopener" hidden>افتح واتساب</a>
+          <button class="btn btn-ghost" type="button" id="copy">انسخ الرسالة</button>
+        </div>
+        <p class="fine" id="copy-note" role="status"></p>
+        <p class="fine" id="wa-hint">أرسل الرسالة لنا على واتساب: <span class="numtxt" id="wa-num"></span>. لم يتم إرسال شيء بعد.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>بوصلة للخدمات الطلابية</span>
+    <span>القبول قرار الجامعة</span>
+  </footer>
+</div>
+
+<script>
+// رقم واتساب الصفحة بالصيغة الدولية، أرقام فقط.
+var WA_NUMBER = "249118918642";
+
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var waLinks = document.querySelectorAll('[data-wa]');
+  if (WA_NUMBER) {
+    for (var i=0;i<waLinks.length;i++){
+      waLinks[i].href = 'https://wa.me/' + WA_NUMBER;
+      waLinks[i].target = '_blank';
+      waLinks[i].rel = 'noopener';
+      waLinks[i].hidden = false;
+    }
+  }
+
+  function val(id){ return ($(id).value || '').trim(); }
+
+  $('f-cc').addEventListener('change', function(){
+    $('f-cc-other').hidden = ($('f-cc').value !== 'other');
+    if (!$('f-cc-other').hidden) $('f-cc-other').focus();
+  });
+
+  $('reg').addEventListener('submit', function(e){
+    e.preventDefault();
+    var ok = true;
+    $('e-name').textContent = ''; $('e-phone').textContent = ''; $('e-pct').textContent = '';
+
+    if (!val('f-name')) { $('e-name').textContent = 'اكتب اسمك.'; ok = false; }
+
+    var cc = $('f-cc').value === 'other' ? val('f-cc-other').replace(/\D/g,'') : $('f-cc').value;
+    var local = val('f-phone').replace(/\D/g,'').replace(/^0+/, '');
+    if (!cc) { $('e-phone').textContent = 'اكتب كود الدولة.'; ok = false; }
+    else if (local.length < 7 || local.length > 12) { $('e-phone').textContent = 'اكتب رقمك بدون الصفر في أوله، مثال: 912345678'; ok = false; }
+
+    var pct = val('f-pct');
+    if (pct !== '') {
+      var n = parseFloat(pct);
+      if (isNaN(n) || n < 0 || n > 100) { $('e-pct').textContent = 'من 0 إلى 100.'; ok = false; }
+    }
+    if (!ok) return;
+
+    var lines = [
+      'السلام عليكم، أريد الاستفسار عن خدمة التقديم للجامعات.',
+      'الاسم: ' + val('f-name'),
+      'رقم الواتساب: \u200E+' + cc + local + '\u200E',
+      'المرحلة: ' + $('f-level').value
+    ];
+    if (val('f-major')) lines.push('الرغبة الأساسية: ' + val('f-major'));
+    if (pct !== '') lines.push('النسبة: ' + pct + '%');
+    if (val('f-country')) lines.push('الدولة أو الجامعة: ' + val('f-country'));
+    if (val('f-note')) lines.push('ملاحظات: ' + val('f-note'));
+    var msg = lines.join('\n');
+
+    $('msg').value = msg;
+    $('result').hidden = false;
+    $('copy-note').textContent = '';
+
+    var send = $('wa-send');
+    if (WA_NUMBER) {
+      send.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+      send.hidden = false;
+      $('wa-num').textContent = '+' + WA_NUMBER;
+    } else {
+      send.hidden = true;
+      $('wa-hint').textContent = 'انسخ الرسالة وأرسلها لنا على واتساب. لم يتم إرسال شيء بعد.';
+    }
+    $('result').scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  $('copy').addEventListener('click', function(){
+    var t = $('msg');
+    function fallback(){
+      t.focus(); t.select();
+      $('copy-note').textContent = 'حدد النص وانسخه يدوياً.';
+    }
+    try {
+      navigator.clipboard.writeText(t.value).then(function(){
+        $('copy-note').textContent = 'تم النسخ.';
+      }, fallback);
+    } catch (err) { fallback(); }
+  });
+})();
+</script>
+
+</body>
+</html>
